@@ -6,13 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 /*
  * This is our model class and it corresponds to Categoria table in database
  */
 @Entity
 @Table(name="CATEGORIA")
-public class Categoria {
+public class Categoria implements Serializable {
 	
 	@Id
 	@Column(name="id")
@@ -24,12 +25,6 @@ public class Categoria {
 
 	public Categoria() {
 		super();
-	}
-
-	public Categoria(int id, String descricao) {
-		super();
-		this.id = id;
-		this.descricao = descricao;
 	}
 
 	public int getId() {

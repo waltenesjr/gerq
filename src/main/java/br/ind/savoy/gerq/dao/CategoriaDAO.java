@@ -2,7 +2,9 @@ package br.ind.savoy.gerq.dao;
 
 import java.util.List;
 
+import br.ind.savoy.gerq.bean.PaginationBean;
 import br.ind.savoy.gerq.model.Categoria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +20,37 @@ public class CategoriaDAO {
 		this.sessionFactory = sf;
 	}
 
-	public List<Categoria> getAllCategorias() {
+	public List<Categoria> getListPagination(PaginationBean pagination) {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Categoria> categoriaList = session.createQuery("from Categoria").list();
-		return categoriaList;
+		String hql = "from Categoria c" + pagination
+				.where()
+				.presente("descricao", "c.descricao like :descricao")
+				.build();
+		Query query = session.createQuery(hql);
+		if (pagination.existe("descricao")) {
+			query.setParameter("descricao", "%" + pagination.getField("descricao").getValue() + "%");
+		}
+		query.setFirstResult(pagination.getStart());
+		query.setMaxResults(pagination.getEnd());
+		return query.list();
+	}
+
+	public Long getCountPagination(PaginationBean pagination) {
+		Session session = this.sessionFactory.getCurrentSession();
+		String hql = "select count(*) from Categoria c" + pagination
+				.where()
+				.presente("descricao", "c.descricao like :descricao")
+				.build();
+		Query query = session.createQuery(hql);
+		if (pagination.existe("descricao")) {
+			query.setParameter("descricao", "%" + pagination.getField("descricao").getValue() + "%");
+		}
+		return (Long) query.uniqueResult();
 	}
 
 	public Categoria getCategoria(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Categoria categoria = (Categoria) session.load(Categoria.class, new Integer(id));
+		Categoria categoria = (Categoria) session.get(Categoria.class, id);
 		return categoria;
 	}
 
