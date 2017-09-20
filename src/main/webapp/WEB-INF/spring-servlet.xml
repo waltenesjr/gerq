@@ -26,6 +26,7 @@
 		<beans:property name="annotatedClasses">
 			<beans:list>
 				<beans:value>br.ind.savoy.gerq.model.Categoria</beans:value>
+				<beans:value>br.ind.savoy.gerq.model.Produto</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">

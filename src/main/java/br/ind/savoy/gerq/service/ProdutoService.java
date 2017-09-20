@@ -1,19 +1,17 @@
 package br.ind.savoy.gerq.service;
 
-import java.util.List;
-
 import br.ind.savoy.gerq.bean.PaginationBean;
-import br.ind.savoy.gerq.dao.CategoriaDAO;
-import br.ind.savoy.gerq.model.Categoria;
+import br.ind.savoy.gerq.dao.ProdutoDAO;
+import br.ind.savoy.gerq.model.Produto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Service("categoriaService")
-public class CategoriaService {
+@Service("produtoService")
+public class ProdutoService {
 
 	@Autowired
-	CategoriaDAO dao;
+	ProdutoDAO dao;
 
 	@Transactional
 	public PaginationBean getListPagination(PaginationBean pagination) {
@@ -23,23 +21,18 @@ public class CategoriaService {
 	}
 
 	@Transactional
-	public Categoria get(int id) {
+	public Produto get(int id) {
 		return dao.get(id);
 	}
 
 	@Transactional
-	public List<Categoria> all() {
-		return dao.all();
+	public void add(Produto produto) {
+		dao.add(produto);
 	}
 
 	@Transactional
-	public void add(Categoria categoria) {
-		dao.add(categoria);
-	}
-
-	@Transactional
-	public void update(Categoria categoria) {
-		dao.update(categoria);
+	public void update(Produto produto) {
+		dao.update(produto);
 	}
 
 	@Transactional

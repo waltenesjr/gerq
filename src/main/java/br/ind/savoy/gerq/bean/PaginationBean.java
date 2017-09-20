@@ -1,6 +1,5 @@
 package br.ind.savoy.gerq.bean;
 
-import javax.servlet.FilterChain;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +42,6 @@ public class PaginationBean {
     }
 
     public class WhereBuilder {
-
         private PaginationBean filtro;
         private List<String> condicoes;
 
@@ -56,7 +54,6 @@ public class PaginationBean {
             if (filtro.existe(chave)) {
                 condicoes.add(condicao);
             }
-
             return this;
         }
 
@@ -67,11 +64,9 @@ public class PaginationBean {
 
         public String build() {
             String where = null;
-
             for (final String condicao : condicoes) {
                 where = (where == null ? " where " : where + " and ") + condicao;
             }
-
             return where == null ? "" : where;
         }
     }

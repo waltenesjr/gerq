@@ -1,17 +1,18 @@
 package br.ind.savoy.gerq.dao;
 
-import java.util.List;
-
 import br.ind.savoy.gerq.bean.PaginationBean;
 import br.ind.savoy.gerq.model.Categoria;
+import br.ind.savoy.gerq.model.Produto;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
-public class CategoriaDAO {
+public class ProdutoDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -22,13 +23,16 @@ public class CategoriaDAO {
 
 	public List<Categoria> getListPagination(PaginationBean pagination) {
 		Session session = this.sessionFactory.getCurrentSession();
-		String hql = "from Categoria c" + pagination
+		String hql = "from Produto p" + pagination
 				.where()
-				.presente("descricao", "c.descricao like :descricao")
+				.presente("nome", "p.nome like :nome")
+				.presente("categoria", "p.categoria.id = :idCategoria")
 				.build();
 		Query query = session.createQuery(hql);
-		if (pagination.existe("descricao")) {
-			query.setParameter("descricao", "%" + pagination.getField("descricao").getValue() + "%");
+		if (pagination.existe("nome")) {
+			query.setParameter("nome", "%" + pagination.getField("nome").getValue() + "%");
+		} else if (pagination.existe("categoria")) {
+			query.setParameter("idCategoria", Integer.valueOf(pagination.getField("categoria").getValue()));
 		}
 		query.setFirstResult(pagination.getStart());
 		query.setMaxResults(pagination.getEnd());
@@ -37,45 +41,42 @@ public class CategoriaDAO {
 
 	public Long getCountPagination(PaginationBean pagination) {
 		Session session = this.sessionFactory.getCurrentSession();
-		String hql = "select count(*) from Categoria c" + pagination
+		String hql = "select count(*) from Produto p" + pagination
 				.where()
-				.presente("descricao", "c.descricao like :descricao")
+				.presente("nome", "p.nome like :nome")
+				.presente("categoria", "p.categoria.id = :idCategoria")
 				.build();
 		Query query = session.createQuery(hql);
-		if (pagination.existe("descricao")) {
-			query.setParameter("descricao", "%" + pagination.getField("descricao").getValue() + "%");
+		if (pagination.existe("nome")) {
+			query.setParameter("nome", "%" + pagination.getField("nome").getValue() + "%");
+		} else if (pagination.existe("categoria")) {
+			query.setParameter("idCategoria", Integer.valueOf(pagination.getField("categoria").getValue()));
 		}
 		return (Long) query.uniqueResult();
 	}
 
-	public Categoria get(int id) {
+	public Produto get(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Categoria categoria = (Categoria) session.get(Categoria.class, id);
-		return categoria;
+		Produto produto = (Produto) session.get(Produto.class, id);
+		return produto;
 	}
 
-	public List<Categoria> all() {
+	public Produto add(Produto produto) {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Categoria> all = session.createQuery("from Categoria").list();
-		return all;
+		session.persist(produto);
+		return produto;
 	}
 
-	public Categoria add(Categoria categoria) {
+	public void update(Produto produto) {
 		Session session = this.sessionFactory.getCurrentSession();
-		session.persist(categoria);
-		return categoria;
-	}
-
-	public void update(Categoria categoria) {
-		Session session = this.sessionFactory.getCurrentSession();
-		session.update(categoria);
+		session.update(produto);
 	}
 
 	public void delete(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
-		Categoria c = (Categoria) session.load(Categoria.class, new Integer(id));
-		if (null != c) {
-			session.delete(c);
+		Produto p = (Produto) session.load(Produto.class, new Integer(id));
+		if (null != p) {
+			session.delete(p);
 		}
 	}	
 }
