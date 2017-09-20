@@ -25,9 +25,16 @@ public class Produto implements Serializable {
 	@Column(name = "quantidade")
 	private int quantidade;
 
+	@Column(name = "corrosivo")
+	private Boolean corrosivo;
+
 	@ManyToOne
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
+
+	@ManyToOne
+	@JoinColumn(name = "empresa_id")
+	private Empresa empresa;
 
 	public int getId() {
 		return id;
@@ -61,11 +68,27 @@ public class Produto implements Serializable {
 		this.quantidade = quantidade;
 	}
 
+	public Boolean getCorrosivo() {
+		return corrosivo;
+	}
+
+	public void setCorrosivo(Boolean corrosivo) {
+		this.corrosivo = corrosivo;
+	}
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
 
 	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
+	}
+
+	public Empresa getEmpresa() {
+		return empresa;
+	}
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
 	}
 }
