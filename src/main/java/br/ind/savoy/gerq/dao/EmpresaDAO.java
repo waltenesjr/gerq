@@ -48,6 +48,12 @@ public class EmpresaDAO {
 		return (Long) query.uniqueResult();
 	}
 
+	public List<Empresa> all() {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Empresa> all = session.createQuery("from Empresa").list();
+		return all;
+	}
+
 	public Empresa get(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Empresa empresa = (Empresa) session.get(Empresa.class, id);

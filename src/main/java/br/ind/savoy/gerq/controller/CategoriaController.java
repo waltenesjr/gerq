@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 public class CategoriaController {
 	
 	@Autowired
-	CategoriaService categoriaService;
+	CategoriaService service;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.POST, headers = "Accept=application/json")
 	public @ResponseBody ResponseEntity<?> getList(@RequestBody PaginationBean pagination) {
 		try{
-			return new ResponseEntity<>(categoriaService.getListPagination(pagination), HttpStatus.OK);
+			return new ResponseEntity<>(service.getListPagination(pagination), HttpStatus.OK);
 		}catch(Exception ex){
 			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
 		}
@@ -27,7 +27,7 @@ public class CategoriaController {
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<?> get(@PathVariable int id) {
 		try{
-			return new ResponseEntity<>(categoriaService.get(id), HttpStatus.OK);
+			return new ResponseEntity<>(service.get(id), HttpStatus.OK);
 		}catch(Exception ex){
 			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
 		}
@@ -36,22 +36,22 @@ public class CategoriaController {
 	@RequestMapping(value = "/all", method = RequestMethod.GET, headers = "Accept=application/json")
 	public ResponseEntity<?> all() {
 		try{
-			return new ResponseEntity<>(categoriaService.all(), HttpStatus.OK);
+			return new ResponseEntity<>(service.all(), HttpStatus.OK);
 		}catch(Exception ex){
 			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
 		}
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json")
-	public void add(@RequestBody Categoria categoria) { categoriaService.add(categoria); }
+	public void add(@RequestBody Categoria categoria) { service.add(categoria); }
 
 	@RequestMapping(value = "/update", method = RequestMethod.PUT, headers = "Accept=application/json")
 	public void update(@RequestBody Categoria categoria) {
-		categoriaService.update(categoria);
+		service.update(categoria);
 	}
 
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE, headers = "Accept=application/json")
 	public void delete(@PathVariable("id") int id) {
-		categoriaService.delete(id);
+		service.delete(id);
 	}	
 }
