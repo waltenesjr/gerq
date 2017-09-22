@@ -3,6 +3,7 @@ package br.ind.savoy.gerq.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /*
  * This is our model class and it corresponds to Produto table in database
@@ -15,6 +16,9 @@ public class Produto implements Serializable {
 	@Column(name = "id")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+
+	@Column(name = "codigo_servico")
+	private int codigo_servico;
 
 	@Column(name = "nome")
 	private String nome;
@@ -36,12 +40,23 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
+	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	private List<Perigo> perigos;
+
 	public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getCodigo_servico() {
+		return codigo_servico;
+	}
+
+	public void setCodigo_servico(int codigo_servico) {
+		this.codigo_servico = codigo_servico;
 	}
 
 	public String getNome() {
@@ -90,5 +105,13 @@ public class Produto implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	public List<Perigo> getPerigos() {
+		return perigos;
+	}
+
+	public void setPerigos(List<Perigo> perigos) {
+		this.perigos = perigos;
 	}
 }

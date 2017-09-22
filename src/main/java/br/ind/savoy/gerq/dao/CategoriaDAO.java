@@ -1,7 +1,5 @@
 package br.ind.savoy.gerq.dao;
 
-import java.util.List;
-
 import br.ind.savoy.gerq.bean.PaginationBean;
 import br.ind.savoy.gerq.model.Categoria;
 import org.hibernate.Query;
@@ -9,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class CategoriaDAO {
@@ -77,5 +77,5 @@ public class CategoriaDAO {
 		if (null != c) {
 			session.delete(c);
 		}
-	}	
+	}
 }
