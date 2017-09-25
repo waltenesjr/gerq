@@ -55,6 +55,12 @@ public class ProdutoDAO {
 		return produto;
 	}
 
+	public List<Produto> all() {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Produto> all = session.createQuery("from Produto").list();
+		return all;
+	}
+
 	public Produto add(Produto produto) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(produto);

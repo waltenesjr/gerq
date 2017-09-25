@@ -1,5 +1,6 @@
 package br.ind.savoy.gerq.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.CascadeType;
 
@@ -26,9 +27,9 @@ public class Perigo implements Serializable {
 	@Column(name = "descricao")
 	String descricao;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "produto_id")
-	@Cascade({CascadeType.ALL})
 	private Produto produto;
 
 	public int getId() {

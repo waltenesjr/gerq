@@ -2,6 +2,7 @@ package br.ind.savoy.gerq.dao;
 
 import br.ind.savoy.gerq.bean.PaginationBean;
 import br.ind.savoy.gerq.model.Perigo;
+import br.ind.savoy.gerq.model.Produto;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -64,6 +65,13 @@ public class PerigoDAO {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(perigo);
 		return perigo;
+	}
+
+	public void addAll(List<Perigo> perigos, Produto produto){
+		for (Perigo p : perigos){
+			p.setProduto(produto);
+			add(p);
+		}
 	}
 
 	public void update(Perigo perigo) {

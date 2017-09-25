@@ -40,7 +40,7 @@ public class Produto implements Serializable {
 	@JoinColumn(name = "empresa_id")
 	private Empresa empresa;
 
-	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "produto", fetch = FetchType.EAGER)
 	private List<Perigo> perigos;
 
 	public int getId() {
