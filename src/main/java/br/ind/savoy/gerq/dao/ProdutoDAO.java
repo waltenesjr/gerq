@@ -49,6 +49,14 @@ public class ProdutoDAO {
 		return (Long) query.uniqueResult();
 	}
 
+	public List<Produto> findByNome(String name) {
+		String hql = "from Produto p where p.nome like :nome";
+		Session session = this.sessionFactory.getCurrentSession();
+		Query query = session.createQuery(hql);
+		query.setParameter("nome", "%" + name + "%");
+		return query.list();
+	}
+
 	public Produto get(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Produto produto = (Produto) session.get(Produto.class, id);

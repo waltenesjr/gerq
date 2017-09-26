@@ -39,6 +39,11 @@ public class ProdutoService {
 	}
 
 	@Transactional
+	public List<Produto> findByName(String name) {
+		return dao.findByNome(name);
+	}
+
+	@Transactional
 	public void add(Produto produto) {
 		List<Perigo> perigos = new ArrayList<>();
 		perigos.addAll(produto.getPerigos());
