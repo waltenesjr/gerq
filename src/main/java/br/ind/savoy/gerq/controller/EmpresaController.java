@@ -25,7 +25,7 @@ public class EmpresaController {
 	}
 
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<?> getById(@PathVariable int id) {
+	public @ResponseBody ResponseEntity<?> getById(@PathVariable int id) {
 		try{
 			return new ResponseEntity<>(service.get(id), HttpStatus.OK);
 		}catch(Exception ex){
@@ -34,7 +34,7 @@ public class EmpresaController {
 	}
 
 	@RequestMapping(value = "/all", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<?> all() {
+	public @ResponseBody ResponseEntity<?> all() {
 		try{
 			return new ResponseEntity<>(service.all(), HttpStatus.OK);
 		}catch(Exception ex){

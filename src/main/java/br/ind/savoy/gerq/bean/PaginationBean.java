@@ -9,10 +9,6 @@ import java.util.List;
  */
 public class PaginationBean {
 
-    private Integer start;
-
-    private Integer end;
-
     private Integer currentPage;
 
     private Integer limit;
@@ -22,6 +18,14 @@ public class PaginationBean {
     private List<FieldsBean> fields;
 
     private List<? extends Serializable> list;
+
+    public Integer getStart() {
+        return currentPage * limit - limit;
+    }
+
+    public Integer getEnd() {
+        return currentPage * limit;
+    }
 
     public boolean existe(final String chave) {
         final FieldsBean field = getField(chave);
@@ -69,24 +73,6 @@ public class PaginationBean {
             }
             return where == null ? "" : where;
         }
-    }
-
-    public Integer getStart() {
-        start = currentPage * limit - limit;
-        return start;
-    }
-
-    public void setStart(Integer start) {
-        this.start = start;
-    }
-
-    public Integer getEnd() {
-        end = currentPage * limit;
-        return end;
-    }
-
-    public void setEnd(Integer end) {
-        this.end = end;
     }
 
     public Integer getCurrentPage() {

@@ -34,7 +34,7 @@ public class ProdutoController {
 	}
 
 	@RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
-	public ResponseEntity<?> getByName(@PathVariable String name) {
+	public @ResponseBody ResponseEntity<?> getByName(@PathVariable String name) {
 		try{
 			return new ResponseEntity<>(service.findByName(name), HttpStatus.OK);
 		}catch(Exception ex){

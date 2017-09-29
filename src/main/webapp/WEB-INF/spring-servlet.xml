@@ -11,24 +11,13 @@
 
 	<resources mapping="/resources/**" location="/resources/" />
 
-	<!--
-	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-				destroy-method="close">
-		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/waltenes_gerq" />
-		<beans:property name="username" value="waltenes_root" />
-		<beans:property name="password" value="@gerq2018" />
-	</beans:bean>
-	-->
-
 	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
 		destroy-method="close">
 		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<beans:property name="url" value="jdbc:mysql://localhost:3306/gerq" />
-		<beans:property name="username" value="root" />
-		<beans:property name="password" value="root" />
+		<beans:property name="url" value="jdbc:mysql://${bd.host}" />
+		<beans:property name="username" value="${bd.user}" />
+		<beans:property name="password" value="${bd.pass}" />
 	</beans:bean>
-
 
 	<!-- Hibernate 4 SessionFactory Bean definition -->
 	<beans:bean id="hibernate4AnnotatedSessionFactory"
@@ -46,7 +35,7 @@
 			<beans:props>
 				<beans:prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect
 				</beans:prop>
-				<beans:prop key="hibernate.show_sql">true</beans:prop>
+				<beans:prop key="hibernate.show_sql">false</beans:prop>
 			</beans:props>
 		</beans:property>
 	</beans:bean>

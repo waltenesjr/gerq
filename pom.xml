@@ -9,14 +9,14 @@
 	<name>GERQ - Gerenciamento de Produtos Químicos</name>
 	<url>http://maven.apache.org</url>
 
-	<dependencies>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
-			<scope>test</scope>
-		</dependency>
+	<properties>
+		<spring.version>4.2.1.RELEASE</spring.version>
+		<jdk.version>1.7</jdk.version>
+		<hibernate.version>4.3.5.Final</hibernate.version>
+		<org.aspectj-version>1.7.4</org.aspectj-version>
+	</properties>
 
+	<dependencies>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -77,7 +77,26 @@
 	</dependencies>
 
 	<build>
-		<finalName>gerq</finalName>
+		<finalName>${project.artifactId}</finalName>
+		<filters>
+			<filter>src/main/filters/filter.properties</filter>
+		</filters>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.properties</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/**</include>
+				</includes>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -93,16 +112,36 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
+					<webResources>
+						<resource>
+							<filtering>true</filtering>
+							<directory>src/main/webapp</directory>
+							<includes>
+								<include>**/spring-servlet.xml</include>
+							</includes>
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
-	<properties>
-		<spring.version>4.2.1.RELEASE</spring.version>
-		<security.version>4.0.3.RELEASE</security.version>
-		<jdk.version>1.7</jdk.version>
-		<hibernate.version>4.3.5.Final</hibernate.version>
-		<org.aspectj-version>1.7.4</org.aspectj-version>
-	</properties>
+	<profiles>
+		<profile>
+			<id>desenv</id>
+			<properties>
+				<bd.host>${bd.host.desenv}</bd.host>
+				<bd.user>${bd.user.desenv}</bd.user>
+				<bd.pass>${bd.pass.desenv}</bd.pass>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<bd.host>${bd.host.prod}</bd.host>
+				<bd.user>${bd.user.prod}</bd.user>
+				<bd.pass>${bd.pass.prod}</bd.pass>
+			</properties>
+		</profile>
+	</profiles>
 </project>
