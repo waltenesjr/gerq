@@ -15,6 +15,8 @@ public class PaginationBean {
 
     private Long totalResults;
 
+    private SortBean sort;
+
     private List<FieldsBean> fields;
 
     private List<? extends Serializable> list;
@@ -97,6 +99,14 @@ public class PaginationBean {
 
     public void setTotalResults(Long totalResults) {
         this.totalResults = totalResults;
+    }
+
+    public SortBean getSort() {
+        return sort;
+    }
+
+    public void setSort(SortBean sort) {
+        this.sort = sort;
     }
 
     public List<FieldsBean> getFields() {

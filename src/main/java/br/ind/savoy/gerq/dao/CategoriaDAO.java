@@ -16,12 +16,8 @@ public class CategoriaDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sf) {
-		this.sessionFactory = sf;
-	}
-
 	public List<Categoria> getListPagination(PaginationBean pagination) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "from Categoria c" + pagination
 				.where()
 				.presente("descricao", "c.descricao like :descricao")
@@ -36,7 +32,7 @@ public class CategoriaDAO {
 	}
 
 	public Long getCountPagination(PaginationBean pagination) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "select count(*) from Categoria c" + pagination
 				.where()
 				.presente("descricao", "c.descricao like :descricao")
@@ -49,30 +45,30 @@ public class CategoriaDAO {
 	}
 
 	public Categoria get(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Categoria categoria = (Categoria) session.get(Categoria.class, id);
 		return categoria;
 	}
 
 	public List<Categoria> all() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		List<Categoria> all = session.createQuery("from Categoria").list();
 		return all;
 	}
 
 	public Categoria add(Categoria categoria) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.persist(categoria);
 		return categoria;
 	}
 
 	public void update(Categoria categoria) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.update(categoria);
 	}
 
 	public void delete(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Categoria c = (Categoria) session.load(Categoria.class, new Integer(id));
 		if (null != c) {
 			session.delete(c);

@@ -16,12 +16,8 @@ public class EmpresaDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sf) {
-		this.sessionFactory = sf;
-	}
-
 	public List<Empresa> getListPagination(PaginationBean pagination) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "from Empresa e" + pagination
 				.where()
 				.presente("nome", "e.nome like :nome")
@@ -36,7 +32,7 @@ public class EmpresaDAO {
 	}
 
 	public Long getCountPagination(PaginationBean pagination) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "select count(*) from Empresa e" + pagination
 				.where()
 				.presente("nome", "e.nome like :nome")
@@ -49,30 +45,30 @@ public class EmpresaDAO {
 	}
 
 	public List<Empresa> all() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		List<Empresa> all = session.createQuery("from Empresa").list();
 		return all;
 	}
 
 	public Empresa get(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Empresa empresa = (Empresa) session.get(Empresa.class, id);
 		return empresa;
 	}
 
 	public Empresa add(Empresa empresa) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.persist(empresa);
 		return empresa;
 	}
 
 	public void update(Empresa empresa) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.update(empresa);
 	}
 
 	public void delete(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Empresa e = (Empresa) session.load(Empresa.class, new Integer(id));
 		if (null != e) {
 			session.delete(e);

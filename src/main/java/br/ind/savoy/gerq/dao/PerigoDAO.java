@@ -17,12 +17,8 @@ public class PerigoDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sf) {
-		this.sessionFactory = sf;
-	}
-
 	public List<Perigo> getListPagination(PaginationBean pagination) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "select count(*) from Perigo p" + pagination
 				.where()
 				.presente("produto", "p.produto.nome like :produto")
@@ -37,7 +33,7 @@ public class PerigoDAO {
 	}
 
 	public Long getCountPagination(PaginationBean pagination) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		String hql = "select count(*) from Perigo p" + pagination
 				.where()
 				.presente("produto", "p.produto.nome like :produto")
@@ -50,19 +46,19 @@ public class PerigoDAO {
 	}
 
 	public Perigo get(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Perigo perigo = (Perigo) session.get(Perigo.class, id);
 		return perigo;
 	}
 
 	public List<Perigo> all() {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		List<Perigo> all = session.createQuery("from Perigo").list();
 		return all;
 	}
 
 	public Perigo add(Perigo perigo) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.persist(perigo);
 		return perigo;
 	}
@@ -75,12 +71,12 @@ public class PerigoDAO {
 	}
 
 	public void update(Perigo perigo) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		session.update(perigo);
 	}
 
 	public void delete(int id) {
-		Session session = this.sessionFactory.getCurrentSession();
+		Session session = sessionFactory.getCurrentSession();
 		Perigo p = (Perigo) session.load(Perigo.class, new Integer(id));
 		if (null != p) {
 			session.delete(p);
