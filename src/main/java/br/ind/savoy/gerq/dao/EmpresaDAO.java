@@ -1,6 +1,7 @@
 package br.ind.savoy.gerq.dao;
 
 import br.ind.savoy.gerq.bean.PaginationBean;
+import br.ind.savoy.gerq.bean.SelectBean;
 import br.ind.savoy.gerq.model.Empresa;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -42,6 +43,13 @@ public class EmpresaDAO {
 			query.setParameter("nome", "%" + pagination.getField("nome").getValue() + "%");
 		}
 		return (Long) query.uniqueResult();
+	}
+
+	public List<SelectBean> getListSelect() {
+		final String hql = "select new " + SelectBean.class.getName() + "(e.id, e.nome) from Empresa e";
+		Session session = sessionFactory.getCurrentSession();
+		List<SelectBean> all = session.createQuery(hql).list();
+		return all;
 	}
 
 	public List<Empresa> all() {

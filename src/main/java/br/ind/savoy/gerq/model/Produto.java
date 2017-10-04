@@ -18,7 +18,7 @@ public class Produto implements Serializable {
 	private int id;
 
 	@Column(name = "codigo_servico")
-	private int codigo_servico;
+	private int codigoServico;
 
 	@Column(name = "nome")
 	private String nome;
@@ -51,12 +51,12 @@ public class Produto implements Serializable {
 		this.id = id;
 	}
 
-	public int getCodigo_servico() {
-		return codigo_servico;
+	public int getCodigoServico() {
+		return codigoServico;
 	}
 
-	public void setCodigo_servico(int codigo_servico) {
-		this.codigo_servico = codigo_servico;
+	public void setCodigoServico(int codigoServico) {
+		this.codigoServico = codigoServico;
 	}
 
 	public String getNome() {

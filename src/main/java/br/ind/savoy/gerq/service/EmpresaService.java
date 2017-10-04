@@ -1,6 +1,7 @@
 package br.ind.savoy.gerq.service;
 
 import br.ind.savoy.gerq.bean.PaginationBean;
+import br.ind.savoy.gerq.bean.SelectBean;
 import br.ind.savoy.gerq.dao.EmpresaDAO;
 import br.ind.savoy.gerq.model.Empresa;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class EmpresaService {
 		pagination.setList(dao.getListPagination(pagination));
 		pagination.setTotalResults(dao.getCountPagination(pagination));
 		return pagination;
+	}
+
+	@Transactional
+	public List<SelectBean> getListSelect() {
+		return dao.getListSelect();
 	}
 
 	@Transactional
