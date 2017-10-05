@@ -1,6 +1,7 @@
 package br.ind.savoy.gerq.dao;
 
 import br.ind.savoy.gerq.bean.PaginationBean;
+import br.ind.savoy.gerq.bean.SelectBean;
 import br.ind.savoy.gerq.model.Categoria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -48,6 +49,13 @@ public class CategoriaDAO {
 		Session session = sessionFactory.getCurrentSession();
 		Categoria categoria = (Categoria) session.get(Categoria.class, id);
 		return categoria;
+	}
+
+	public List<SelectBean> getListSelect() {
+		final String hql = "select new " + SelectBean.class.getName() + "(c.id, c.descricao) from Categoria c";
+		Session session = sessionFactory.getCurrentSession();
+		List<SelectBean> all = session.createQuery(hql).list();
+		return all;
 	}
 
 	public List<Categoria> all() {

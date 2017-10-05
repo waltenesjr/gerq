@@ -3,6 +3,7 @@ package br.ind.savoy.gerq.service;
 import java.util.List;
 
 import br.ind.savoy.gerq.bean.PaginationBean;
+import br.ind.savoy.gerq.bean.SelectBean;
 import br.ind.savoy.gerq.dao.CategoriaDAO;
 import br.ind.savoy.gerq.model.Categoria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class CategoriaService {
 		pagination.setList(dao.getListPagination(pagination));
 		pagination.setTotalResults(dao.getCountPagination(pagination));
 		return pagination;
+	}
+
+	@Transactional
+	public List<SelectBean> getListSelect() {
+		return dao.getListSelect();
 	}
 
 	@Transactional

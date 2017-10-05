@@ -42,6 +42,15 @@ public class CategoriaController {
 		}
 	}
 
+	@RequestMapping(value = "/getListSelect", method = RequestMethod.GET, headers = "Accept=application/json")
+	public @ResponseBody ResponseEntity<?> getListSelect() {
+		try{
+			return new ResponseEntity<>(service.getListSelect(), HttpStatus.OK);
+		}catch(Exception ex){
+			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
+		}
+	}
+
 	@RequestMapping(value = "/add", method = RequestMethod.POST, headers = "Accept=application/json")
 	public void add(@RequestBody Categoria categoria) { service.add(categoria); }
 
