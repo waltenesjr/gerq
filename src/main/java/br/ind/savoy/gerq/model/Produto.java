@@ -1,7 +1,12 @@
 package br.ind.savoy.gerq.model;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.context.annotation.Lazy;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -41,6 +46,7 @@ public class Produto implements Serializable {
 	private Empresa empresa;
 
 	@OneToMany(mappedBy = "produto", fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SUBSELECT)
 	private List<Perigo> perigos;
 
 	public int getId() {
@@ -108,6 +114,8 @@ public class Produto implements Serializable {
 	}
 
 	public List<Perigo> getPerigos() {
+		if (perigos == null)
+			perigos = new ArrayList<>();
 		return perigos;
 	}
 

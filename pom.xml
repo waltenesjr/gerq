@@ -133,6 +133,7 @@
 				<bd.host>${bd.host.desenv}</bd.host>
 				<bd.user>${bd.user.desenv}</bd.user>
 				<bd.pass>${bd.pass.desenv}</bd.pass>
+				<show.sql>${show.sql.desenv}</show.sql>
 			</properties>
 		</profile>
 		<profile>
@@ -141,6 +142,7 @@
 				<bd.host>${bd.host.prod}</bd.host>
 				<bd.user>${bd.user.prod}</bd.user>
 				<bd.pass>${bd.pass.prod}</bd.pass>
+				<show.sql>${show.sql.prod}</show.sql>
 			</properties>
 		</profile>
 	</profiles>

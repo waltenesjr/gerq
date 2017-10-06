@@ -33,15 +33,6 @@ public class EmpresaController {
 		}
 	}
 
-	@RequestMapping(value = "/all", method = RequestMethod.GET, headers = "Accept=application/json")
-	public @ResponseBody ResponseEntity<?> all() {
-		try{
-			return new ResponseEntity<>(service.all(), HttpStatus.OK);
-		}catch(Exception ex){
-			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
-		}
-	}
-
 	@RequestMapping(value = "/getListSelect", method = RequestMethod.GET, headers = "Accept=application/json")
 	public @ResponseBody ResponseEntity<?> getListSelect() {
 		try{
