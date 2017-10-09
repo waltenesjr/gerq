@@ -1,15 +1,15 @@
 package br.ind.savoy.gerq.service;
 
-import java.util.List;
-
 import br.ind.savoy.gerq.bean.PaginationBean;
 import br.ind.savoy.gerq.bean.SelectBean;
 import br.ind.savoy.gerq.hibernate.HibernateDAO;
-import br.ind.savoy.gerq.repository.CategoriaRepository;
 import br.ind.savoy.gerq.model.Categoria;
+import br.ind.savoy.gerq.repository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service("categoriaService")
 public class CategoriaService {

@@ -5,7 +5,6 @@ import br.ind.savoy.gerq.bean.SelectBean;
 import br.ind.savoy.gerq.hibernate.HibernateDAO;
 import br.ind.savoy.gerq.model.Categoria;
 import br.ind.savoy.gerq.model.Empresa;
-import br.ind.savoy.gerq.model.Produto;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;

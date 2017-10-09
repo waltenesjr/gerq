@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/produto")
 public class ProdutoController {
@@ -17,8 +19,9 @@ public class ProdutoController {
 	
 	@RequestMapping(value = "/list", method = RequestMethod.POST, headers = "Accept=application/json")
 	public @ResponseBody ResponseEntity<?> getList(@RequestBody PaginationBean pagination) {
+		PaginationBean resultList = service.getListPagination(pagination);
 		try{
-			return new ResponseEntity<>(service.getListPagination(pagination), HttpStatus.OK);
+			return new ResponseEntity<>(resultList, HttpStatus.OK);
 		}catch(Exception ex){
 			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
 		}
@@ -26,8 +29,9 @@ public class ProdutoController {
 
 	@RequestMapping(value = "/get/{id}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public @ResponseBody ResponseEntity<?> getById(@PathVariable int id) {
+		Produto result = service.get(id);
 		try{
-			return new ResponseEntity<>(service.get(id), HttpStatus.OK);
+			return new ResponseEntity<>(result, HttpStatus.OK);
 		}catch(Exception ex){
 			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
 		}
@@ -35,17 +39,9 @@ public class ProdutoController {
 
 	@RequestMapping(value = "/findByName/{name}", method = RequestMethod.GET, headers = "Accept=application/json")
 	public @ResponseBody ResponseEntity<?> getByName(@PathVariable String name) {
+		List<Produto> resultList = service.findByName(name);
 		try{
-			return new ResponseEntity<>(service.findByName(name), HttpStatus.OK);
-		}catch(Exception ex){
-			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
-		}
-	}
-
-	@RequestMapping(value = "/all", method = RequestMethod.GET, headers = "Accept=application/json")
-	public @ResponseBody ResponseEntity<?> all() {
-		try{
-			return new ResponseEntity<>(service.all(), HttpStatus.OK);
+			return new ResponseEntity<>(resultList, HttpStatus.OK);
 		}catch(Exception ex){
 			return new ResponseEntity<>(ex, HttpStatus.BAD_REQUEST);
 		}
