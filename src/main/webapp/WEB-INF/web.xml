@@ -8,9 +8,7 @@
 
     <servlet>
         <servlet-name>spring</servlet-name>
-        <servlet-class>
-        org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
@@ -23,6 +21,8 @@
         <filter-name>cors</filter-name>
         <filter-class>br.ind.savoy.gerq.filter.CORSFilter</filter-class>
     </filter>
+
+
 
     <filter-mapping>
         <filter-name>cors</filter-name>

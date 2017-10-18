@@ -114,8 +114,6 @@ public class Produto implements Serializable {
 	}
 
 	public List<Perigo> getPerigos() {
-		if (perigos == null)
-			perigos = new ArrayList<>();
 		return perigos;
 	}
 
