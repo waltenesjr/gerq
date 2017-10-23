@@ -22,8 +22,6 @@
         <filter-class>br.ind.savoy.gerq.filter.CORSFilter</filter-class>
     </filter>
 
-
-
     <filter-mapping>
         <filter-name>cors</filter-name>
         <url-pattern>/*</url-pattern>

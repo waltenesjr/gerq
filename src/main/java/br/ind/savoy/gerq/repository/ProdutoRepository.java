@@ -21,8 +21,8 @@ public class ProdutoRepository {
 
 	public List<Produto> getListPagination(PaginationBean pagination) {
 		Criteria criteria = dao.createCriteria(Produto.class);
-		addRestriction(pagination, criteria);
-		addOrder(pagination, criteria);
+		addRestrictionPagination(pagination, criteria);
+		addOrderPagination(pagination, criteria);
 		criteria.setFirstResult(pagination.getStart());
 		criteria.setMaxResults(pagination.getEnd());
 		return criteria.list();
@@ -30,7 +30,7 @@ public class ProdutoRepository {
 
 	public Long getCountPagination(PaginationBean pagination) {
 		Criteria criteria = dao.createCriteria(Produto.class);
-		addRestriction(pagination, criteria);
+		addRestrictionPagination(pagination, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
 	}
@@ -41,14 +41,14 @@ public class ProdutoRepository {
 		return criteria.list();
 	}
 
-	private void addOrder(PaginationBean pagination, Criteria criteria) {
+	private void addOrderPagination(PaginationBean pagination, Criteria criteria) {
 		if (pagination.getSort().getField() != null)
 			criteria.addOrder(pagination.getSort().getDirection().equals("asc")
 					? Order.asc(pagination.getSort().getField())
 					: Order.desc(pagination.getSort().getField()));
 	}
 
-	private void addRestriction(PaginationBean pagination, Criteria criteria) {
+	private void addRestrictionPagination(PaginationBean pagination, Criteria criteria) {
 		if (pagination.existe("nome"))
 			criteria.add(Restrictions.like("nome", pagination.getField("nome").getValue(), MatchMode.ANYWHERE));
 	}
