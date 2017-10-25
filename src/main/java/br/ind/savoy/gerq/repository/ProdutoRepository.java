@@ -35,7 +35,7 @@ public class ProdutoRepository {
 		return (Long) criteria.uniqueResult();
 	}
 
-	public List<Produto> findByNome(String name) {
+	public List<Produto> findByName(String name) {
 		Criteria criteria = dao.createCriteria(Produto.class)
 				.add(Restrictions.like("nome", name, MatchMode.ANYWHERE));
 		return criteria.list();

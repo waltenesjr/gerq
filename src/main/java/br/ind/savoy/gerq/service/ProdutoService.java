@@ -2,7 +2,7 @@ package br.ind.savoy.gerq.service;
 
 import br.ind.savoy.gerq.bean.PaginationBean;
 import br.ind.savoy.gerq.hibernate.HibernateDAO;
-import br.ind.savoy.gerq.repository.PerigoRepository;
+import br.ind.savoy.gerq.model.Emergencia;
 import br.ind.savoy.gerq.repository.ProdutoRepository;
 import br.ind.savoy.gerq.model.Perigo;
 import br.ind.savoy.gerq.model.Produto;
@@ -25,6 +25,9 @@ public class ProdutoService {
 	@Autowired
 	PerigoService perigoService;
 
+	@Autowired
+	EmergenciaService emergenciaService;
+
 	@Transactional
 	public PaginationBean getListPagination(PaginationBean pagination) {
 		pagination.setList(repository.getListPagination(pagination));
@@ -37,23 +40,24 @@ public class ProdutoService {
 		return (Produto) dao.get(Produto.class, id);
 	}
 
-	@Transactional
-	public List<Produto> all() {
-		return dao.createCriteria(Produto.class).list();
-	}
 
 	@Transactional
 	public List<Produto> findByName(String name) {
-		return repository.findByNome(name);
+		return repository.findByName(name);
 	}
 
 	@Transactional
 	public void add(Produto produto) {
 		List<Perigo> perigos = new ArrayList<>();
+		List<Emergencia> emergencias = new ArrayList<>();
 		perigos.addAll(produto.getPerigos());
+		emergencias.addAll(produto.getEmergencias());
+		produto.getEmergencias().clear();
 		produto.getPerigos().clear();
 		dao.persist(produto);
+		emergenciaService.addList(emergencias, produto);
 		perigoService.addList(perigos, produto);
+
 	}
 
 	@Transactional

@@ -22,8 +22,7 @@ public class EmpresaRepository {
 
 	public List<Categoria> getListPagination(PaginationBean pagination) {
 		Criteria criteria = dao.createCriteria(Empresa.class);
-		if (pagination.existe("nome"))
-			criteria.add(Restrictions.like("nome", pagination.getField("nome").getValue(), MatchMode.ANYWHERE));
+		addRestrictionPagination(pagination, criteria);
 		criteria.setFirstResult(pagination.getStart());
 		criteria.setMaxResults(pagination.getEnd());
 		return criteria.list();
@@ -31,8 +30,7 @@ public class EmpresaRepository {
 
 	public Long getCountPagination(PaginationBean pagination) {
 		Criteria criteria = dao.createCriteria(Empresa.class);
-		if (pagination.existe("nome"))
-			criteria.add(Restrictions.like("nome", pagination.getField("nome").getValue(), MatchMode.ANYWHERE));
+		addRestrictionPagination(pagination, criteria);
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
 	}
@@ -41,5 +39,10 @@ public class EmpresaRepository {
 		final String hql = "select new " + SelectBean.class.getName() + "(e.id, e.nome) from Empresa e";
 		List<SelectBean> all = dao.createQuery(hql).list();
 		return all;
+	}
+
+	private void addRestrictionPagination(PaginationBean pagination, Criteria criteria) {
+		if (pagination.existe("nome"))
+			criteria.add(Restrictions.like("nome", pagination.getField("nome").getValue(), MatchMode.ANYWHERE));
 	}
 }
