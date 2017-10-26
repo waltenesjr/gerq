@@ -36,17 +36,6 @@ public class ProdutoService {
 	}
 
 	@Transactional
-	public Produto get(int id) {
-		return (Produto) dao.get(Produto.class, id);
-	}
-
-
-	@Transactional
-	public List<Produto> findByName(String name) {
-		return repository.findByName(name);
-	}
-
-	@Transactional
 	public void add(Produto produto) {
 		List<Perigo> perigos = new ArrayList<>();
 		List<Emergencia> emergencias = new ArrayList<>();
@@ -58,6 +47,17 @@ public class ProdutoService {
 		emergenciaService.addList(emergencias, produto);
 		perigoService.addList(perigos, produto);
 
+	}
+
+	@Transactional
+	public Produto get(int id) {
+		return (Produto) dao.get(Produto.class, id);
+	}
+
+
+	@Transactional
+	public List<Produto> findByName(String name) {
+		return repository.findByName(name);
 	}
 
 	@Transactional

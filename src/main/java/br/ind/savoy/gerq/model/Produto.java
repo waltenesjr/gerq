@@ -47,7 +47,7 @@ public class Produto implements Serializable {
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Perigo> perigos;
 
-	@OneToMany(mappedBy = "emergencia", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "produto", fetch = FetchType.EAGER)
 	@Fetch(FetchMode.SUBSELECT)
 	private List<Emergencia> emergencias;
 

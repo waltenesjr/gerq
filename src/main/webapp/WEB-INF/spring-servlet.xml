@@ -29,6 +29,7 @@
 				<beans:value>br.ind.savoy.gerq.model.Produto</beans:value>
 				<beans:value>br.ind.savoy.gerq.model.Empresa</beans:value>
 				<beans:value>br.ind.savoy.gerq.model.Perigo</beans:value>
+				<beans:value>br.ind.savoy.gerq.model.Emergencia</beans:value>
 			</beans:list>
 		</beans:property>
 		<beans:property name="hibernateProperties">
